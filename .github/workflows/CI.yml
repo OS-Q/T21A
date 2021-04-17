@@ -45,7 +45,7 @@ jobs:
           mkdir build
           pio run -e ${{ matrix.env }} -d . > build/log.txt
           # cp -f ./.qio/build/${{ matrix.env }}/*.bin ./build/
-          cp -rf ./.*/* ./build/
+          cp -rf ./.*io/* ./build/
           echo "::set-output name=status::success"
 
       - name: Upload
