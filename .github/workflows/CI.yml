@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+    paths-ignore:
+      - '**.md'
 
 env:
   UPLOAD_BUILD: true
@@ -15,8 +17,8 @@ jobs:
       fail-fast: false
       matrix:
         env:
-          - stm32f103c8
-          - jlink
+          - debug
+          - release
 
     runs-on: ubuntu-latest
     steps:
@@ -42,10 +44,12 @@ jobs:
         run: |
           mkdir build
           pio run -e ${{ matrix.env }} -d . > build/log.txt
+          cp ./.qio/build/${{ matrix.env }}/*.bin build/
+          echo "::set-output name=status::success"
 
       - name: Upload
         uses: actions/upload-artifact@v2
-        if: failure() &&  env.UPLOAD_BUILD
+        if: env.UPLOAD_BUILD
         with:
           name: ${{github.workflow}}_${{ matrix.env }}
           path: build/
