@@ -1,6 +1,4 @@
 *.pyc
-*.pio/
-*.vscode/
 *.rst
 *.rel
 *.sym
@@ -10,3 +8,6 @@
 *.ihx
 *.map
 *.lk
+*.pio/
+*.vscode/
+stm32pio.ini
